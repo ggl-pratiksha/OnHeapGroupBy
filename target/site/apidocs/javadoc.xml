@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+    <package name="com.example.onHeapGroupBy">
+        <class name="Application" qualified="com.example.onHeapGroupBy.Application" scope="public" abstract="false" error="false" exception="false" externalizable="false" included="true" serializable="false">
+            <class qualified="java.lang.Object"/>
+            <interface qualified="com.datatorrent.api.StreamingApplication"/>
+            <constructor name="Application" signature="()" qualified="com.example.onHeapGroupBy.Application" scope="public" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false"/>
+            <method name="populateDAG" signature="(com.datatorrent.api.DAG, org.apache.hadoop.conf.Configuration)" qualified="com.example.onHeapGroupBy.Application.populateDAG" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <parameter name="dag">
+                    <type qualified="com.datatorrent.api.DAG"/>
+                </parameter>
+                <parameter name="conf">
+                    <type qualified="org.apache.hadoop.conf.Configuration"/>
+                </parameter>
+                <return qualified="void"/>
+                <annotation name="Override" qualified="java.lang.Override"/>
+            </method>
+            <annotation name="ApplicationAnnotation" qualified="com.datatorrent.api.annotation.ApplicationAnnotation">
+                <argument name="name" primitive="false" array="false">
+                    <type qualified="java.lang.String"/>
+                    <value>OnHeapGroupBy</value>
+                </argument>
+            </annotation>
+        </class>
+        <class name="RandomNumberGenerator" qualified="com.example.onHeapGroupBy.RandomNumberGenerator" scope="public" abstract="false" error="false" exception="false" externalizable="false" included="true" serializable="false">
+            <comment>This is a simple operator that emits random number.</comment>
+            <class qualified="com.datatorrent.common.util.BaseOperator"/>
+            <interface qualified="com.datatorrent.api.InputOperator"/>
+            <constructor name="RandomNumberGenerator" signature="()" qualified="com.example.onHeapGroupBy.RandomNumberGenerator" scope="public" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false"/>
+            <method name="beginWindow" signature="(long)" qualified="com.example.onHeapGroupBy.RandomNumberGenerator.beginWindow" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <parameter name="windowId">
+                    <type qualified="long"/>
+                </parameter>
+                <return qualified="void"/>
+                <annotation name="Override" qualified="java.lang.Override"/>
+            </method>
+            <method name="emitTuples" signature="()" qualified="com.example.onHeapGroupBy.RandomNumberGenerator.emitTuples" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <return qualified="void"/>
+                <annotation name="Override" qualified="java.lang.Override"/>
+            </method>
+            <method name="setup" signature="(com.datatorrent.api.Context.OperatorContext)" qualified="com.example.onHeapGroupBy.RandomNumberGenerator.setup" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <parameter name="context">
+                    <type qualified="com.datatorrent.api.Context.OperatorContext"/>
+                </parameter>
+                <return qualified="void"/>
+                <annotation name="Override" qualified="java.lang.Override"/>
+            </method>
+            <method name="getNumTuples" signature="()" qualified="com.example.onHeapGroupBy.RandomNumberGenerator.getNumTuples" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <return qualified="int"/>
+            </method>
+            <method name="setNumTuples" signature="(int)" qualified="com.example.onHeapGroupBy.RandomNumberGenerator.setNumTuples" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <comment>Sets the number of tuples to be emitted every window.</comment>
+                <tag name="@param" text="numTuples number of tuples"/>
+                <parameter name="numTuples">
+                    <type qualified="int"/>
+                </parameter>
+                <return qualified="void"/>
+            </method>
+            <field name="MAX" qualified="com.example.onHeapGroupBy.RandomNumberGenerator.MAX" scope="public" volatile="false" transient="false" static="false" final="true">
+                <type qualified="int"/>
+                <constant>20000000</constant>
+            </field>
+            <field name="out" qualified="com.example.onHeapGroupBy.RandomNumberGenerator.out" scope="public" volatile="false" transient="true" static="false" final="true">
+                <type qualified="com.datatorrent.api.DefaultOutputPort">
+                    <generic qualified="com.example.onHeapGroupBy.TransactionSchema"/>
+                </type>
+            </field>
+        </class>
+        <class name="TransactionSchema" qualified="com.example.onHeapGroupBy.TransactionSchema" scope="public" abstract="false" error="false" exception="false" externalizable="false" included="true" serializable="false">
+            <class qualified="java.lang.Object"/>
+            <constructor name="TransactionSchema" signature="()" qualified="com.example.onHeapGroupBy.TransactionSchema" scope="public" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false"/>
+            <constructor name="TransactionSchema" signature="(int, long)" qualified="com.example.onHeapGroupBy.TransactionSchema" scope="public" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <parameter name="id">
+                    <type qualified="int"/>
+                </parameter>
+                <parameter name="price">
+                    <type qualified="long"/>
+                </parameter>
+            </constructor>
+            <method name="toString" signature="()" qualified="com.example.onHeapGroupBy.TransactionSchema.toString" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <return qualified="java.lang.String"/>
+                <annotation name="Override" qualified="java.lang.Override"/>
+            </method>
+            <method name="getId" signature="()" qualified="com.example.onHeapGroupBy.TransactionSchema.getId" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <return qualified="int"/>
+            </method>
+            <method name="setId" signature="(int)" qualified="com.example.onHeapGroupBy.TransactionSchema.setId" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <parameter name="id">
+                    <type qualified="int"/>
+                </parameter>
+                <return qualified="void"/>
+            </method>
+            <method name="getPrice" signature="()" qualified="com.example.onHeapGroupBy.TransactionSchema.getPrice" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <return qualified="long"/>
+            </method>
+            <method name="setPrice" signature="(long)" qualified="com.example.onHeapGroupBy.TransactionSchema.setPrice" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <parameter name="price">
+                    <type qualified="long"/>
+                </parameter>
+                <return qualified="void"/>
+            </method>
+        </class>
+        <class name="OnHeapGroupByOperator" qualified="com.example.onHeapGroupBy.OnHeapGroupByOperator" scope="public" abstract="false" error="false" exception="false" externalizable="false" included="true" serializable="false">
+            <class qualified="com.datatorrent.common.util.BaseOperator"/>
+            <constructor name="OnHeapGroupByOperator" signature="()" qualified="com.example.onHeapGroupBy.OnHeapGroupByOperator" scope="public" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false"/>
+            <method name="setup" signature="(com.datatorrent.api.Context.OperatorContext)" qualified="com.example.onHeapGroupBy.OnHeapGroupByOperator.setup" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <parameter name="context">
+                    <type qualified="com.datatorrent.api.Context.OperatorContext"/>
+                </parameter>
+                <return qualified="void"/>
+                <annotation name="Override" qualified="java.lang.Override"/>
+            </method>
+            <method name="endWindow" signature="()" qualified="com.example.onHeapGroupBy.OnHeapGroupByOperator.endWindow" scope="public" abstract="false" final="false" included="true" native="false" synchronized="false" static="false" varArgs="false">
+                <return qualified="void"/>
+                <annotation name="Override" qualified="java.lang.Override"/>
+            </method>
+            <field name="MAX" qualified="com.example.onHeapGroupBy.OnHeapGroupByOperator.MAX" scope="public" volatile="false" transient="false" static="false" final="true">
+                <type qualified="int"/>
+                <constant>20000000</constant>
+            </field>
+            <field name="output" qualified="com.example.onHeapGroupBy.OnHeapGroupByOperator.output" scope="public" volatile="false" transient="true" static="false" final="true">
+                <type qualified="com.datatorrent.api.DefaultOutputPort">
+                    <generic qualified="com.example.onHeapGroupBy.TransactionSchema"/>
+                </type>
+            </field>
+            <field name="input" qualified="com.example.onHeapGroupBy.OnHeapGroupByOperator.input" scope="public" volatile="false" transient="true" static="false" final="true">
+                <type qualified="com.datatorrent.api.DefaultInputPort">
+                    <generic qualified="com.example.onHeapGroupBy.TransactionSchema"/>
+                </type>
+            </field>
+        </class>
+    </package>
+</root>
